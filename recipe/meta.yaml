@@ -1,0 +1,120 @@
+{% set name = "pandas" %}
+{% set version = "0.22.0" %}
+{% set file_ext = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "44a94091dd71f05922eec661638ec1a35f26d573c119aa2fad964f10a2880e6c" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.{{ file_ext }}'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ file_ext }}
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - python-dateutil >=2
+    - pytz >=2011k
+    - numpy >=1.9.0
+  run:
+    - python
+    - python-dateutil >=2
+    - pytz >=2011k
+    - numpy >=1.9.0
+
+test:
+  imports:
+    - pandas
+    - pandas._libs
+    - pandas._libs.tslibs
+    - pandas.api
+    - pandas.api.types
+    - pandas.compat
+    - pandas.compat.numpy
+    - pandas.computation
+    - pandas.core
+    - pandas.core.computation
+    - pandas.core.dtypes
+    - pandas.core.indexes
+    - pandas.core.reshape
+    - pandas.core.sparse
+    - pandas.core.tools
+    - pandas.core.util
+    - pandas.errors
+    - pandas.formats
+    - pandas.io
+    - pandas.io.clipboard
+    - pandas.io.formats
+    - pandas.io.json
+    - pandas.io.msgpack
+    - pandas.io.sas
+    - pandas.plotting
+    - pandas.stats
+    - pandas.tests
+    - pandas.tests.api
+    - pandas.tests.computation
+    - pandas.tests.dtypes
+    - pandas.tests.frame
+    - pandas.tests.groupby
+    - pandas.tests.indexes
+    - pandas.tests.indexes.datetimes
+    - pandas.tests.indexes.period
+    - pandas.tests.indexes.timedeltas
+    - pandas.tests.indexing
+    - pandas.tests.internals
+    - pandas.tests.io
+    - pandas.tests.io.formats
+    - pandas.tests.io.json
+    - pandas.tests.io.msgpack
+    - pandas.tests.io.parser
+    - pandas.tests.io.sas
+    - pandas.tests.plotting
+    - pandas.tests.reshape
+    - pandas.tests.scalar
+    - pandas.tests.series
+    - pandas.tests.sparse
+    - pandas.tests.tools
+    - pandas.tests.tseries
+    - pandas.tests.util
+    - pandas.tools
+    - pandas.tseries
+    - pandas.types
+    - pandas.util
+
+about:
+  home: http://pandas.pydata.org
+  license: BSD
+  license_family: BSD
+  license_file: ''
+  summary: Powerful data structures for data analysis, time series,and statistics
+  description: "**pandas** is a Python package providing fast, flexible, and expressive data\nstructures designed to make working with structured (tabular, multidimensional,\npotentially heterogeneous)\
+    \ and time series data both easy and intuitive. It\naims to be the fundamental high-level building block for doing practical,\n**real world** data analysis in Python. Additionally, it has the broader\
+    \ goal\nof becoming **the most powerful and flexible open source data analysis /\nmanipulation tool available in any language**. It is already well on its way\ntoward this goal.\n\npandas is well suited\
+    \ for many different kinds of data:\n\n  - Tabular data with heterogeneously-typed columns, as in an SQL table or\n    Excel spreadsheet\n  - Ordered and unordered (not necessarily fixed-frequency)\
+    \ time series data.\n  - Arbitrary matrix data (homogeneously typed or heterogeneous) with row and\n    column labels\n  - Any other form of observational / statistical data sets. The data actually\n\
+    \    need not be labeled at all to be placed into a pandas data structure\n\nThe two primary data structures of pandas, Series (1-dimensional) and DataFrame\n(2-dimensional), handle the vast majority\
+    \ of typical use cases in finance,\nstatistics, social science, and many areas of engineering. For R users,\nDataFrame provides everything that R's ``data.frame`` provides and much\nmore. pandas is\
+    \ built on top of `NumPy <http://www.numpy.org>`__ and is\nintended to integrate well within a scientific computing environment with many\nother 3rd party libraries.\n\nHere are just a few of the things\
+    \ that pandas does well:\n\n  - Easy handling of **missing data** (represented as NaN) in floating point as\n    well as non-floating point data\n  - Size mutability: columns can be **inserted and deleted**\
+    \ from DataFrame and\n    higher dimensional objects\n  - Automatic and explicit **data alignment**: objects can be explicitly\n    aligned to a set of labels, or the user can simply ignore the labels\
+    \ and\n    let `Series`, `DataFrame`, etc. automatically align the data for you in\n    computations\n  - Powerful, flexible **group by** functionality to perform\n    split-apply-combine operations\
+    \ on data sets, for both aggregating and\n    transforming data\n  - Make it **easy to convert** ragged, differently-indexed data in other\n    Python and NumPy data structures into DataFrame objects\n\
+    \  - Intelligent label-based **slicing**, **fancy indexing**, and **subsetting**\n    of large data sets\n  - Intuitive **merging** and **joining** data sets\n  - Flexible **reshaping** and pivoting\
+    \ of data sets\n  - **Hierarchical** labeling of axes (possible to have multiple labels per\n    tick)\n  - Robust IO tools for loading data from **flat files** (CSV and delimited),\n    Excel files,\
+    \ databases, and saving / loading data from the ultrafast **HDF5\n    format**\n  - **Time series**-specific functionality: date range generation and frequency\n    conversion, moving window statistics,\
+    \ moving window linear regressions,\n    date shifting and lagging, etc.\n\nMany of these principles are here to address the shortcomings frequently\nexperienced using other languages / scientific research\
+    \ environments. For data\nscientists, working with data is typically divided into multiple stages:\nmunging and cleaning data, analyzing / modeling it, then organizing the results\nof the analysis into\
+    \ a form suitable for plotting or tabular display. pandas is\nthe ideal tool for all of these tasks.\n\nNote\n----\nWindows binaries built against NumPy 1.8.1\n\n\n"
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''

@@ -1,0 +1,43 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/test
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Fast finish outdated PRs and merge PRs
+          command: |
+            ./.circleci/fast_finish_ci_pr_build.sh
+            ./.circleci/checkout_merge_commit.sh
+      - run:
+          command: docker pull condaforge/linux-anvil
+      - run:
+          # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
+          command: ./.circleci/run_docker_build.sh
+      - run:
+          command: |
+            sudo apt-get update
+            echo "deb [arch=amd64 trusted=yes] http://ftp.unicamp.br/pub/linuxpatch/ubuntu/14_04/misc/docker-17.04.0-ce-amd64/ trusty main" | sudo tee /etc/apt/sources.list.d/docker-engine.list
+            sudo apt-get update
+            sudo apt-get install -y docker-engine
+            docker pull condaforge/linux-anvil
+            docker run --rm --privileged multiarch/qemu-user-static:register
+            sudo apt-get -y install wget git
+            sudo wget https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1/qemu-ppc64le-static.tar.gz -O /tmp/qemu-ppc64le-static.tar.gz
+            sudo file /tmp/qemu-ppc64le-static.tar.gz
+            mkdir tmp
+            tar -zxvf /tmp/qemu-ppc64le-static.tar.gz -C tmp
+      - run:
+          name: Print conda-build environment variables
+          command: |
+            echo "CONDA_PY=${CONDA_PY}"
+      - run:
+          command: ./.circleci/run_docker_build_ppc64le.sh
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
