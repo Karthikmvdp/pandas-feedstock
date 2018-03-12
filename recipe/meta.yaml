@@ -18,6 +18,13 @@ build:
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
+  build:
+    - python
+    - setuptools
+    - cython
+    - numpy 1.9.*  # [py27 or py35]
+    - numpy 1.11.*  # [py36]
+
   host:
     - python
     - setuptools
