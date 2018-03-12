@@ -15,7 +15,8 @@ jobs:
           command: docker pull condaforge/linux-anvil
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
-          command: ./.circleci/run_docker_build.sh
+          command: ./.circleci/run_docker_build.sh:
+          timeout: 900
       - run:
           command: |
             sudo apt-get update
@@ -34,7 +35,8 @@ jobs:
           command: |
             echo "CONDA_PY=${CONDA_PY}"
       - run:
-          command: ./.circleci/run_docker_build_ppc64le.sh
+          command: ./.circleci/run_docker_build_ppc64le.sh:
+          timeout: 2000
 
 workflows:
   version: 2
