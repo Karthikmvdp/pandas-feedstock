@@ -15,7 +15,7 @@ jobs:
           command: docker pull condaforge/linux-anvil
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
-          command: ./.circleci/run_docker_build.sh
+          # command: ./.circleci/run_docker_build.sh
       - run:
           command: |
             sudo apt-get update
