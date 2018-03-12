@@ -16,7 +16,7 @@ jobs:
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
           command: ./.circleci/run_docker_build.sh
-          no_output_timeout: 20m
+          
       - run:
           command: |
             sudo apt-get update
@@ -35,7 +35,9 @@ jobs:
           command: |
             echo "CONDA_PY=${CONDA_PY}"
       - run:
+          no_output_timeout: 20m
           command: ./.circleci/run_docker_build_ppc64le.sh
+          no_output_timeout: 20m
 
 workflows:
   version: 2
